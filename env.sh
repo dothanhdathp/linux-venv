@@ -51,7 +51,7 @@ check-linux-venv() {
 
 function quick_rebuild() {
     if [[ -d "./linux-venv/" ]]; then
-        ./linux-venv/bin/mkdocs build --dirty
+        ./linux-venv/bin/python3 ./linux-venv/bin/mkdocs build --dirty
     else
         echo "Directory does not exist. Build fail!"
     fi
@@ -59,7 +59,7 @@ function quick_rebuild() {
 
 function rebuild() {
     if [[ -d "./linux-venv/" ]]; then
-        ./linux-venv/bin/mkdocs build
+        ./linux-venv/bin/python3 ./linux-venv/bin/mkdocs build
     else
         echo "Directory does not exist. Build fail!"
     fi

@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV /home/tad/Documents/tad-doc/docs/linux-venv/linux-venv
+set -gx VIRTUAL_ENV /home/dtdat/Documents/tad-doc/docs/linux-venv/linux-venv
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"bin $PATH
