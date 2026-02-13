@@ -58,6 +58,7 @@ function quick_rebuild() {
 }
 
 function rebuild() {
+    rm -rf ~/.config/tad-app/
     if [[ -d "./linux-venv/" ]]; then
         ./linux-venv/bin/python3 ./linux-venv/bin/mkdocs build
     else
