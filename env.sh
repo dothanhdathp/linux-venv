@@ -1,5 +1,11 @@
 #!/usr/bin/bash
 
+# Activated Python env
+active_python_env() {
+	python3 -m venv linux-venv
+	source linux-venv/bin/activate
+}
+
 # Define the function for confirmation
 confirm_action() {
     while true; do
@@ -36,7 +42,7 @@ setup-linux-venv() {
     pip install mkdocs-material
     pip install mkdocs_puml
     pip install mkdocs-network-graph-plugin
-    pip install mkdocs-mermaid2-plugin
+    # pip install mkdocs-mermaid2-plugin
     deactivate
 }
 
