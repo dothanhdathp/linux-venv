@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+# PLANTUML_SERVER=https://www.plantuml.com/plantuml/
+PLANTUML_SERVER=http://localhost:8080/svg/
+
 # Activated Python env
 active_python_env() {
 	python3 -m venv linux-venv
@@ -63,13 +66,53 @@ function quick_rebuild() {
     fi
 }
 
-function rebuild() {
-    rm -rf ~/.config/tad-app/
-    if [[ -d "./linux-venv/" ]]; then
+function build() {
+    if [ $# -eq 0 ]; then
+        rm -rf ~/.config/tad-app/
         ./linux-venv/bin/python3 ./linux-venv/bin/mkdocs build
     else
-        echo "Directory does not exist. Build fail!"
+        filepath=$1
+        filename=$(basename $filepath)
+        extension="${filename##*.}"
+        echo extension=$extension
+        case "$extension" in
+            "yml" )
+                # Rebuild all
+                rm -rf ~/.config/tad-app/
+                ./linux-venv/bin/python3 ./linux-venv/bin/mkdocs build
+                ;;
+            # "puml" )
+            #     filepath_without_ext="${filename%.*}"
+            #     umlfile=./docs/assets/diagram/$filepath_without_ext.puml
+            #     svgfile=./docs/assets/diagram/$filepath_without_ext.svg
+            #     echo Build puml diagram
+            #     curl -s -H "Content-Type: text/plain; charset=UTF-8" --data-binary @$umlfile $PLANTUML_SERVER > $svgfile
+            #     ;;
+            * )
+                ./linux-venv/bin/python3 ./linux-venv/bin/mkdocs build --dirty
+                ;;
+        esac
     fi
+}
+
+function diagram() {
+    touch ./docs/assets/diagram/$1.puml
+}
+
+function page() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: foreach_git <git command>"
+        return 1
+    fi
+
+    for file in $*; do
+        if [ -f ./docs/$file ]; then
+            code ./docs/$file
+        else
+            touch ./docs/$file
+            code ./docs/$file
+        fi;
+    done;
 }
 
 # case $1 in
