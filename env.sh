@@ -45,6 +45,7 @@ setup-linux-venv() {
     pip install mkdocs-material
     pip install mkdocs_puml
     pip install mkdocs-network-graph-plugin
+    pip install mkdocs-macros-plugin
     # pip install mkdocs-mermaid2-plugin
     deactivate
 }
